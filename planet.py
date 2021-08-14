@@ -10,10 +10,10 @@ pause = True
 show_data = True
 size = 10
 current_obj = -1
-def ret_r(p1, p2):
+def ret_r(p1, p2): #get lenght between two object
     return sqrt((p1[0]-p2[0])**2+(p1[1]-p2[1])**2)
 
-class Interface:
+class Interface: #class for showing planet data on main screen
     font_size = 12
     f1 = pygame.font.SysFont('arial', font_size)
     def show_data(self, obj):
@@ -22,25 +22,25 @@ class Interface:
             text = self.f1.render(f'{i} = {data[i]}', 0, (255, 255, 255))
             sc.blit(text, (0, n*self.font_size))
 
-class Planet:
+class Planet: #main planet class
     def __init__(self, pos, data=[10, 0, 0, 1, 1], static=False):
-        self.pos = list(pos)
-        self.mass = data[0]
-        self.vx, self.vy = [data[1], data[2]]
-        self.ax, self.ay = [data[3], data[4]]
-        self.rad = self.mass
-        self.color = [*[randint(100, 255)]*3]
-        self.static = static
-        self.custom = False
-        self.last_m_pos = self.pos
+        self.pos = list(pos)#updatable data (planet possition)
+        self.mass = data[0] #planet's mass
+        self.vx, self.vy = [data[1], data[2]] #planet speed on X and Y axis
+        self.ax, self.ay = [data[3], data[4]] #planet acceleration (will use to change planet speed)
+        self.rad = self.mass #default planet radius equals planet mass (can be changed)
+        self.color = [*[randint(100, 255)]*3] #random planet color from 100 to 255 for RGB
+        self.static = static #planet static status (if True then planet will not move but affects on other planets)
+        self.custom = False #custom orbit mode status (if True then after click on the planet will be changed planet speed)
+        self.last_m_pos = self.pos #last mouse possition (needs for calculate planet speed while custom mode)
 
-    def physics_handler(self, obj=None):
+    def physics_handler(self, obj=None): #main function for calculating planet's variables
         global current_obj
         if not pause:
             if not self.static:
                 if obj != None:
                     r = ret_r(self.pos, obj.pos)
-                    
+                    #main calculation for a planet
                     self.ax = obj.mass * (obj.pos[0] - self.pos[0]) / r**3
                     self.ay = obj.mass * (obj.pos[1] - self.pos[1]) / r**3
                     if r < max(self.rad, obj.rad):
@@ -60,7 +60,7 @@ class Planet:
                 self.pos[0] += self.vx
                 self.pos[1] += self.vy
                 
-    def custom_parametrs(self):
+    def custom_parametrs(self): #function for change speed to custom speed
         global current_obj
         if pause:
             if pygame.mouse.get_pressed()[0]:
