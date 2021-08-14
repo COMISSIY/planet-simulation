@@ -2,14 +2,14 @@
 
 simulation control:
 
-keyboard contorl->
-# only english keyboard
-n-button: add new planet with default parameters
-d-button: delete current planet (define in variable)
+keyboard control->
+!ONLY ENGLISH KEYBOARD!
+n-button: add new planet with default parameters 
+d-button: delete current planet (define in variable) 
 t-button: show current planet data
 TAB-button: change current planet as next
 UP-button: increase current planet mass
-DONW-button: decrease current planet mass
+DOWN-button: decrease current planet mass
 RIGHT-button: increase current planet radius
 LEFT-button: decrease current planet radius
 SPACE-button: pause and unpause simulation
